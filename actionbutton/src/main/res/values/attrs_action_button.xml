@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ActionButton">
+        <attr name="progressBarStyle" format="reference" />
+    </declare-styleable>
+</resources>

@@ -1,5 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
+tasks.withType(Javadoc){
+    options.addStringOption('encoding','UTF-8')
+}
 android {
     compileSdkVersion 27
 
@@ -22,4 +26,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+publish {
+    userOrg = 'rkdgusrn1212'
+    groupId = 'com.khgkjg12.component'
+    artifactId = 'actionbutton'
+    publishVersion = '1.0.0'
+    desc = 'custom action button, progressable'
+    website = 'https://github.com/rkdgusrn1212/actionbutton'
 }

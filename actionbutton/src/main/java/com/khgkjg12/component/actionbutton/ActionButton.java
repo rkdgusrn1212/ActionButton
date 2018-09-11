@@ -56,7 +56,7 @@ public class ActionButton extends Button {
         boolean isHandled = super.onTouchEvent(event);
         if(isHandled){
             if(event.getAction() == MotionEvent.ACTION_DOWN){
-                getBackground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.DARKEN);
+                getBackground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
                 //setAlpha(0.5f);
             }else if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
                 getBackground().clearColorFilter();

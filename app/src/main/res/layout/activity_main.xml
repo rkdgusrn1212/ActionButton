@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:text="@string/click"
         app:progressBarStyle="@android:style/Widget.Holo.ProgressBar.Large"
-        android:background="@mipmap/ic_launcher"
+        android:background="@drawable/test_background"
         android:id="@+id/action_button"/>
 
 </android.support.constraint.ConstraintLayout>

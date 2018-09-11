@@ -74,9 +74,19 @@ public class ActionButton extends Button {
     @Override
     public void setClickable(boolean clickable) {
         setAlpha(clickable?1.0f:0.6f);
+        super.setClickable(clickable);
+    }
+
+    public void setProgressBarStyle(int style){
+        mProgressBarStyle = style;
+    }
+
+
+    public void setProgress(boolean progress){
+        setClickable(!progress);
         ViewGroup parent = (ViewGroup)getParent();
         if(parent != null) {
-            if(clickable){
+            if(!progress){
                 if(mProgressBar!=null) {
                     parent.removeView(mProgressBar);
                     mProgressBar = null;
@@ -93,10 +103,5 @@ public class ActionButton extends Button {
                 }
             }
         }
-        super.setClickable(clickable);
-    }
-
-    public void setProgressBarStyle(int style){
-        mProgressBarStyle = style;
     }
 }

@@ -21,10 +21,10 @@ public class MainActivity extends Activity {
                     @Override
                     public void run() {
                         actionButton.setText(R.string.click);
-                        actionButton.setClickable(true);
+                        actionButton.setProgress(false);
                     }
                 },3000);
-                v.setClickable(false);
+                actionButton.setProgress(true);
             }
         });
     }

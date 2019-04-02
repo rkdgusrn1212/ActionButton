@@ -32,7 +32,7 @@ publish {
     userOrg = 'rkdgusrn1212'
     groupId = 'com.khgkjg12.component'
     artifactId = 'actionbutton'
-    publishVersion = '2.0.1'
+    publishVersion = '2.0.2'
     desc = 'custom action button, progressable'
     website = 'https://github.com/rkdgusrn1212/actionbutton'
 }

@@ -11,10 +11,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 /**
@@ -22,7 +24,7 @@ import android.widget.ProgressBar;
  */
 public class ActionButton extends Button {
 
-    ProgressBar mProgressBar;
+    FrameLayout mProgressContainer;
     int mProgressBarStyle;
 
     public ActionButton(Context context) {
@@ -87,19 +89,23 @@ public class ActionButton extends Button {
         ViewGroup parent = (ViewGroup)getParent();
         if(parent != null) {
             if(!progress){
-                if(mProgressBar!=null) {
-                    parent.removeView(mProgressBar);
-                    mProgressBar = null;
+                if(mProgressContainer!=null) {
+                    parent.removeView(mProgressContainer);
+                    mProgressContainer = null;
                 }
             }else{
-                if(mProgressBar==null) {
+                if(mProgressContainer==null) {
+                    mProgressContainer = new FrameLayout(getContext());
+                    mProgressContainer.setLayoutParams(getLayoutParams());
+                    ProgressBar progressBar;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mProgressBarStyle!=0) {
-                        mProgressBar = new ProgressBar(getContext(), null, 0, mProgressBarStyle);
+                        progressBar = new ProgressBar(getContext(), null, 0, mProgressBarStyle);
                     }else{
-                        mProgressBar = new ProgressBar(getContext());
+                        progressBar = new ProgressBar(getContext());
                     }
-                    mProgressBar.setLayoutParams(new ViewGroup.LayoutParams(getWidth(), getHeight()));
-                    parent.addView(mProgressBar);
+                    progressBar.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    mProgressContainer.addView(progressBar);
+                    parent.addView(mProgressContainer, getWidth(), getHeight());
                 }
             }
         }

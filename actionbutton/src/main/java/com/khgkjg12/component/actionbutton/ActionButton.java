@@ -97,6 +97,8 @@ public class ActionButton extends Button {
                 if(mProgressContainer==null) {
                     mProgressContainer = new FrameLayout(getContext());
                     mProgressContainer.setLayoutParams(getLayoutParams());
+                    mProgressContainer.getLayoutParams().width = getWidth();
+                    mProgressContainer.getLayoutParams().height = getHeight();
                     ProgressBar progressBar;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mProgressBarStyle!=0) {
                         progressBar = new ProgressBar(getContext(), null, 0, mProgressBarStyle);
@@ -105,7 +107,7 @@ public class ActionButton extends Button {
                     }
                     progressBar.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                     mProgressContainer.addView(progressBar);
-                    parent.addView(mProgressContainer, getWidth(), getHeight());
+                    parent.addView(mProgressContainer);
                 }
             }
         }

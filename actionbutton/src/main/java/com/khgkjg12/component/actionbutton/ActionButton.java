@@ -74,11 +74,37 @@ public class ActionButton extends Button {
                 }
                 //setAlpha(0.5f);
             }else if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                getBackground().clearColorFilter();
+                Drawable[] drawables = getCompoundDrawables();
+                for(int i =0 ;i < 4; i++){
+                    if(drawables[i]!=null) {
+                        drawables[i].clearColorFilter();
+                    }
+                }
+                if(getBackground()!=null){
+                    getBackground().clearColorFilter();
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getForeground()!=null){
+                        getForeground().clearColorFilter();
+                    }
+                }
                 //setAlpha(1.0f);
             }else if(event.getAction() == MotionEvent.ACTION_MOVE){
                 if(event.getX()<0 ||event.getX() > getWidth() || event.getY() <0 ||event.getY()>getHeight()){
-                    getBackground().clearColorFilter();
+                    Drawable[] drawables = getCompoundDrawables();
+                    for(int i =0 ;i < 4; i++){
+                        if(drawables[i]!=null) {
+                            drawables[i].clearColorFilter();
+                        }
+                    }
+                    if(getBackground()!=null){
+                        getBackground().clearColorFilter();
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if(getForeground()!=null){
+                            getForeground().clearColorFilter();
+                        }
+                    }
                     //setAlpha(1.0f);
                 }
             }

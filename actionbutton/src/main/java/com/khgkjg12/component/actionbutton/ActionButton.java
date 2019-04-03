@@ -58,7 +58,20 @@ public class ActionButton extends Button {
         boolean isHandled = super.onTouchEvent(event);
         if(isHandled){
             if(event.getAction() == MotionEvent.ACTION_DOWN){
-                getBackground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
+                Drawable[] drawables = getCompoundDrawables();
+                for(int i =0 ;i < 4; i++){
+                    if(drawables[i]!=null) {
+                        drawables[i].setColorFilter(Color.argb(100, 0, 0, 0), PorterDuff.Mode.SRC_ATOP);
+                    }
+                }
+                if(getBackground()!=null){
+                    getBackground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getForeground()!=null){
+                        getForeground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
+                    }
+                }
                 //setAlpha(0.5f);
             }else if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
                 getBackground().clearColorFilter();

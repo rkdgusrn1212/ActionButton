@@ -1,5 +1,9 @@
 <resources>
     <declare-styleable name="ActionButton">
         <attr name="progressBarStyle" format="reference" />
+        <attr name="colorFilter" format="color"/>
+        <attr name="colorFilterPressed" format="color"/>
+        <attr name="colorFilterProgressPrimary" format="color"/>
+        <attr name="colorFilterProgressSecond" fotmat="color"/>
     </declare-styleable>
 </resources>

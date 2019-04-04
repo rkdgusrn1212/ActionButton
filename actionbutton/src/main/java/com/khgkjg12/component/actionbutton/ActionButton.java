@@ -26,10 +26,13 @@ public class ActionButton extends Button {
 
     FrameLayout mProgressContainer;
     int mProgressBarStyle;
+    int mColorFilter;
+    int mColorFilterPressed;
+    int mColorFilterProgressPrimary;
+    int mColorFilterProgressSecond;
 
     public ActionButton(Context context) {
         super(context);
-
         init(null, 0);
     }
 
@@ -49,8 +52,27 @@ public class ActionButton extends Button {
 
         mProgressBarStyle = a.getResourceId(
                 R.styleable.ActionButton_progressBarStyle, 0);
-
+        mColorFilter = a.getColor(R.styleable.ActionButton_colorFilter, 0);
+        mColorFilterPressed = a.getColor(R.styleable.ActionButton_colorFilterPressed, 0);
+        mColorFilterProgressPrimary = a.getColor(R.styleable.ActionButton_colorFilterProgressPrimary, 0);
+        mColorFilterProgressSecond = a.getColor(R.styleable.ActionButton_colorFilterProgressSecond,0);
         a.recycle();
+    }
+
+    private void setDrawableOnPressed(Drawable drawable){
+        if(mColorFilterPressed!=0){
+            drawable.setColorFilter(mColorFilterPressed, PorterDuff.Mode.SRC_ATOP);
+        }else{
+            drawable.setColorFilter(Color.argb(100, 0, 0, 0), PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
+    private void setDrawableOnReleased(Drawable drawable){
+        if(mColorFilter!=0){
+            drawable.setColorFilter(mColorFilter, PorterDuff.Mode.SRC_ATOP);
+        }else{
+            drawable.clearColorFilter();
+        }
     }
 
     @Override
@@ -61,15 +83,15 @@ public class ActionButton extends Button {
                 Drawable[] drawables = getCompoundDrawables();
                 for(int i =0 ;i < 4; i++){
                     if(drawables[i]!=null) {
-                        drawables[i].setColorFilter(Color.argb(100, 0, 0, 0), PorterDuff.Mode.SRC_ATOP);
+                        setDrawableOnPressed(drawables[i]);
                     }
                 }
                 if(getBackground()!=null){
-                    getBackground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
+                    setDrawableOnPressed(getBackground());
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(getForeground()!=null){
-                        getForeground().setColorFilter(Color.argb(100,0,0,0), PorterDuff.Mode.SRC_ATOP);
+                        setDrawableOnPressed(getForeground());
                     }
                 }
                 //setAlpha(0.5f);
@@ -77,15 +99,15 @@ public class ActionButton extends Button {
                 Drawable[] drawables = getCompoundDrawables();
                 for(int i =0 ;i < 4; i++){
                     if(drawables[i]!=null) {
-                        drawables[i].clearColorFilter();
+                        setDrawableOnReleased(drawables[i]);
                     }
                 }
                 if(getBackground()!=null){
-                    getBackground().clearColorFilter();
+                    setDrawableOnReleased(getBackground());
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(getForeground()!=null){
-                        getForeground().clearColorFilter();
+                        setDrawableOnReleased(getForeground());
                     }
                 }
                 //setAlpha(1.0f);
@@ -94,15 +116,15 @@ public class ActionButton extends Button {
                     Drawable[] drawables = getCompoundDrawables();
                     for(int i =0 ;i < 4; i++){
                         if(drawables[i]!=null) {
-                            drawables[i].clearColorFilter();
+                            setDrawableOnReleased(drawables[i]);
                         }
                     }
                     if(getBackground()!=null){
-                        getBackground().clearColorFilter();
+                        setDrawableOnReleased(getBackground());
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if(getForeground()!=null){
-                            getForeground().clearColorFilter();
+                            setDrawableOnReleased(getForeground());
                         }
                     }
                     //setAlpha(1.0f);

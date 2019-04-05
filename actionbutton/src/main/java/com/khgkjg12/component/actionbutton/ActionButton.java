@@ -1,6 +1,7 @@
 package com.khgkjg12.component.actionbutton;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,8 +29,7 @@ public class ActionButton extends Button {
     int mProgressBarStyle;
     int mColorFilter;
     int mColorFilterPressed;
-    int mColorFilterProgressPrimary;
-    int mColorFilterProgressSecond;
+    int mColorFilterProgress;
 
     public ActionButton(Context context) {
         super(context);
@@ -54,9 +54,25 @@ public class ActionButton extends Button {
                 R.styleable.ActionButton_progressBarStyle, 0);
         mColorFilter = a.getColor(R.styleable.ActionButton_colorFilter, 0);
         mColorFilterPressed = a.getColor(R.styleable.ActionButton_colorFilterPressed, 0);
-        mColorFilterProgressPrimary = a.getColor(R.styleable.ActionButton_colorFilterProgressPrimary, 0);
-        mColorFilterProgressSecond = a.getColor(R.styleable.ActionButton_colorFilterProgressSecond,0);
+        mColorFilterProgress = a.getColor(R.styleable.ActionButton_colorFilterProgress, 0);
         a.recycle();
+
+        if (mColorFilter != 0) {
+            Drawable[] drawables = getCompoundDrawables();
+            for (int i = 0; i < drawables.length; i++) {
+                if (drawables[i] != null) {
+                    drawables[i].setColorFilter(mColorFilter, PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+            if (getBackground() != null) {
+                getBackground().setColorFilter(mColorFilter, PorterDuff.Mode.SRC_ATOP);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (getForeground() != null) {
+                    getForeground().setColorFilter(mColorFilter, PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+        }
     }
 
     private void setDrawableOnPressed(Drawable drawable){
@@ -69,7 +85,7 @@ public class ActionButton extends Button {
 
     private void setDrawableOnReleased(Drawable drawable){
         if(mColorFilter!=0){
-            drawable.setColorFilter(mColorFilter, PorterDuff.Mode.SRC_ATOP);
+            drawable.setColorFilter(mColorFilter,PorterDuff.Mode.SRC_ATOP);
         }else{
             drawable.clearColorFilter();
         }
@@ -81,7 +97,7 @@ public class ActionButton extends Button {
         if(isHandled){
             if(event.getAction() == MotionEvent.ACTION_DOWN){
                 Drawable[] drawables = getCompoundDrawables();
-                for(int i =0 ;i < 4; i++){
+                for(int i =0 ;i < drawables.length; i++){
                     if(drawables[i]!=null) {
                         setDrawableOnPressed(drawables[i]);
                     }
@@ -97,7 +113,7 @@ public class ActionButton extends Button {
                 //setAlpha(0.5f);
             }else if(event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
                 Drawable[] drawables = getCompoundDrawables();
-                for(int i =0 ;i < 4; i++){
+                for(int i =0 ;i < drawables.length; i++){
                     if(drawables[i]!=null) {
                         setDrawableOnReleased(drawables[i]);
                     }
@@ -114,7 +130,7 @@ public class ActionButton extends Button {
             }else if(event.getAction() == MotionEvent.ACTION_MOVE){
                 if(event.getX()<0 ||event.getX() > getWidth() || event.getY() <0 ||event.getY()>getHeight()){
                     Drawable[] drawables = getCompoundDrawables();
-                    for(int i =0 ;i < 4; i++){
+                    for(int i =0 ;i < drawables.length; i++){
                         if(drawables[i]!=null) {
                             setDrawableOnReleased(drawables[i]);
                         }
@@ -140,11 +156,6 @@ public class ActionButton extends Button {
         super.setClickable(clickable);
     }
 
-    public void setProgressBarStyle(int style){
-        mProgressBarStyle = style;
-    }
-
-
     public void setProgress(boolean progress){
         setClickable(!progress);
         ViewGroup parent = (ViewGroup)getParent();
@@ -167,6 +178,12 @@ public class ActionButton extends Button {
                         progressBar = new ProgressBar(getContext());
                     }
                     progressBar.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                    if(progressBar.getProgressDrawable()!=null) {
+                        progressBar.getProgressDrawable().setColorFilter(mColorFilterProgress, PorterDuff.Mode.SRC_ATOP);
+                    }
+                    if(progressBar.getIndeterminateDrawable()!=null) {
+                        progressBar.getIndeterminateDrawable().setColorFilter(mColorFilterProgress, PorterDuff.Mode.SRC_ATOP);
+                    }
                     mProgressContainer.addView(progressBar);
                     parent.addView(mProgressContainer);
                 }

@@ -4,18 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ic_launcher_background"
+    android:background="#ff00afaf"
     tools:context=".MainActivity">
 
     <com.khgkjg12.component.actionbutton.ActionButton
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_width="200dp"
         android:text="@string/click"
         app:progressBarStyle="@android:style/Widget.Holo.ProgressBar.Large"
         android:background="@null"
+        app:colorFilter="#88ff4444"
+        app:colorFilterPressed="#88ffbb33"
+        app:colorFilterProgress="#88aa66cc"
         android:drawableRight="@mipmap/ic_launcher"
         android:id="@+id/action_button"/>
 
